@@ -1,0 +1,44 @@
+server:
+  port: 8080
+
+# Application Name
+spring: 
+  application: 
+    name: api-gateway
+
+  cloud:
+    gateway:
+      routes:
+        
+        - id: auth-service
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/api/v1/auth/**
+
+        - id: restaurant-service
+          uri: lb://RESTAURANT-SERVICE
+          predicates:
+            - Path=/api/v1/restaurants/**,/api/v1/admin/restaurants/**
+
+
+# Eureka Service Discovery
+eureka:
+  client:
+    service-url: 
+      defaultZone: http://localhost:8761/eureka/
+
+  instance:
+    hostname: localhost
+    prefer-ip-address: false 
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION} 
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+
