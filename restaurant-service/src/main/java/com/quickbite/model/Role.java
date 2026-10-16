@@ -1,0 +1,9 @@
+package com.quickbite.model;
+
+public enum Role {
+
+    CUSTOMER,
+    RESTAURANT_OWNER,
+    DELIVERY_PARTNER,
+    ADMIN
+}
