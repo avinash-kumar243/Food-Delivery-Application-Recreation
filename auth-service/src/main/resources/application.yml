@@ -1,0 +1,58 @@
+server:
+  port: 8081
+
+# Application Name
+spring: 
+  application: 
+    name: auth-service
+
+  # H2 Database -> Get access to H2 database
+  datasource:
+    url: jdbc:h2:mem:quickbite_auth_db
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  # H2 Console -> To access H2 database on our browser
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  # JPA / Hibernate
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  profiles:
+    active: dev
+
+admin:
+  email: ${ADMIN_EMAIL}
+  password: ${ADMIN_PASSWORD}
+
+# JWT Credentials
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: 86400000
+
+# Eureka Discovery
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+  instance:
+    hostname: localhost
+    prefer-ip-address: false
+
+# Actuator Endpoints Expose
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
